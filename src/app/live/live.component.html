@@ -1,7 +1,7 @@
 @if (raceModel) {
   <h1>{{ raceModel.name }}</h1>
   @if (error) {
-    <pr-alert dismissible="false" type="danger">A problem occurred during the live.</pr-alert>
+    <ngb-alert type="danger">A problem occurred during the live.</ngb-alert>
   }
   <div id="live-race">
     @switch (raceModel.status) {

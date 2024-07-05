@@ -5,12 +5,13 @@ import { UserService } from '../user.service';
 import { DecimalPipe, NgIf } from '@angular/common';
 import { concat, of, switchMap, catchError, EMPTY } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'pr-menu',
   standalone: true,
   templateUrl: './menu.component.html',
-  imports: [RouterLink, DecimalPipe, NgIf],
+  imports: [RouterLink, DecimalPipe, NgIf, NgbCollapse],
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {

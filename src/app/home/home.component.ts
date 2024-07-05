@@ -2,7 +2,7 @@ import { Component, signal, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserModel } from '../models/user.model';
 import { UserService } from '../user.service';
-import {NgIf, NgStyle} from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'pr-home',

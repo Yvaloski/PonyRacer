@@ -1,27 +1,37 @@
+
 <nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/">PonyRacer</a>
     <button type="button" class="navbar-toggler" (click)="toggleNavbar()">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div id="navbar" class="navbar-collapse" [class.collapse]="navbarCollapsed">
+    <div id="navbar" class="navbar-collapse" [ngbCollapse]="navbarCollapsed">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a *ngIf="user()" class="nav-link" routerLink="/races">Races</a>
-        </li>
-        <li *ngIf="user()" class="navbar-text">
-          <span id="current-user" class="me-2">
-            {{ user()?.login }}
-            <span class="fa fa-star"></span>
-            {{ user()?.money ?? 0 | number }}
-          </span>
-        </li>
-        <li *ngIf="user()" class="nav-item">
-          <button (click)="logout()" id="logout-link" type="button" class="btn nav-link" aria-label="Logout">
-            <span class="fa fa-power-off"></span>
-          </button>
-        </li>
+        @if (user()) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/races">Races</a>
+          </li>
+        }
       </ul>
+      @if (user(); as user) {
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/users/money/history">
+              <span id="current-user" class="me-2">
+                {{ user.login }}
+                <span class="fa fa-star"></span>
+                {{ user.money | number }}
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <button id="logout-link" type="button" class="btn nav-link" (click)="logout()" aria-label="Logout">
+              <span class="fa fa-power-off"></span>
+            </button>
+          </li>
+        </ul>
+      }
     </div>
   </div>
 </nav>
+

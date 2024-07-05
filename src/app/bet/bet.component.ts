@@ -7,11 +7,11 @@ import { RaceService } from '../race.service';
 import { RaceModel } from '../models/race.model';
 import { PonyModel } from '../models/pony.model';
 import { FromNowPipe } from '../from-now.pipe';
-import {AlertComponent} from "../alert/alert.component";
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone: true,
-  imports: [RouterLink, PonyComponent, FromNowPipe, AlertComponent],
+  imports: [RouterLink, PonyComponent, FromNowPipe, NgbAlert],
   templateUrl: './bet.component.html',
   styleUrl: './bet.component.css'
 })

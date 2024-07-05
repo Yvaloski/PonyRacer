@@ -1,17 +1,15 @@
+import { effect, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { effect, Injectable, signal } from '@angular/core';
-import { UserModel } from './models/user.model';
 import { environment } from '../environments/environment';
+import { UserModel } from './models/user.model';
 import { WsService } from './ws.service';
+import { MoneyHistoryModel } from './models/MoneyHistory.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
-  private apiUrl = environment.baseUrl;
-  private readonly _currentUser = signal<UserModel | null>(null);
-  readonly currentUser = this._currentUser.asReadonly();
+  private user = signal<UserModel | null>(null);
+  readonly currentUser = this.user.asReadonly();
 
   constructor(
     private http: HttpClient,
@@ -19,50 +17,43 @@ export class UserService {
   ) {
     this.retrieveUser();
     effect(() => {
-      const user = this._currentUser();
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
+      // every time the user signal changes, we store it in local storage
+      if (this.user()) {
+        window.localStorage.setItem('rememberMe', JSON.stringify(this.user()));
       } else {
-        localStorage.removeItem('user');
+        window.localStorage.removeItem('rememberMe');
       }
     });
   }
 
-  storeLoggedInUser(user: UserModel) {
-    const userString = JSON.stringify(user);
-    window.localStorage.setItem('rememberMe', userString);
-    this._currentUser.set(user);
-  }
-
-  retrieveUser(): void {
-    const userString = window.localStorage.getItem('rememberMe');
-    if (userString) {
-      const user = JSON.parse(userString) as UserModel;
-      this._currentUser.set(user);
-    }
+  register(login: string, password: string, birthYear: number): Observable<UserModel> {
+    const body = { login, password, birthYear };
+    return this.http.post<UserModel>(`${environment.baseUrl}/api/users`, body);
   }
 
   authenticate(login: string, password: string): Observable<UserModel> {
-    const url = `${this.apiUrl}/api/users/authentication`;
-    const body = { login, password };
-    return this.http.post<UserModel>(url, body).pipe(
-      tap((user: UserModel) => {
-        this.storeLoggedInUser(user);
-      })
-    );
+    return this.http
+      .post<UserModel>(`${environment.baseUrl}/api/users/authentication`, { login, password })
+      .pipe(tap(user => this.user.set(user)));
   }
 
-  register(login: string, password: string, birthYear: number): Observable<UserModel> {
-    const body = { login, password, birthYear };
-    return this.http.post<UserModel>(`${this.apiUrl}/api/users`, body);
+  retrieveUser(): void {
+    const value = window.localStorage.getItem('rememberMe');
+    if (value) {
+      const user = JSON.parse(value) as UserModel;
+      this.user.set(user);
+    }
   }
 
-  logout() {
-    this._currentUser.set(null);
-    localStorage.removeItem('rememberMe');
+  logout(): void {
+    this.user.set(null);
   }
 
   scoreUpdates(userId: number): Observable<UserModel> {
     return this.wsService.connect<UserModel>(`/player/${userId}`);
+  }
+
+  getMoneyHistory(): Observable<Array<MoneyHistoryModel>> {
+    return this.http.get<Array<MoneyHistoryModel>>(`${environment.baseUrl}/api/money/history`);
   }
 }

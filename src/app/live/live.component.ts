@@ -7,11 +7,11 @@ import { RaceModel } from '../models/race.model';
 import { PonyWithPositionModel } from '../models/pony.model';
 import { PonyComponent } from '../pony/pony.component';
 import { FromNowPipe } from '../from-now.pipe';
-import {AlertComponent} from "../alert/alert.component";
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone: true,
-  imports: [PonyComponent, FromNowPipe, AlertComponent],
+  imports: [PonyComponent, FromNowPipe, NgbAlert],
   templateUrl: './live.component.html',
   styleUrl: './live.component.css'
 })
@@ -59,6 +59,7 @@ export class LiveComponent {
       )
       .subscribe(() => {});
   }
+
   onClick(pony: PonyWithPositionModel): void {
     this.clickSubject.next(pony);
   }
