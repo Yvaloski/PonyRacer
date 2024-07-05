@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { NgIf } from '@angular/common';
 import { BirthYearInputComponent } from '../birth-year-input/birth-year-input.component';
-import {AlertComponent} from "../alert/alert.component";
+import { AlertComponent } from '../alert/alert.component';
+import { FormControlValidationDirective } from '../form-control-validation.directive';
 
 @Component({
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, BirthYearInputComponent, AlertComponent],
+  imports: [ReactiveFormsModule, NgIf, BirthYearInputComponent, AlertComponent, FormControlValidationDirective],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

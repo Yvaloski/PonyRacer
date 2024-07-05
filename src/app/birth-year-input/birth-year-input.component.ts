@@ -1,11 +1,13 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
+import { FormControlValidationDirective } from '../form-control-validation.directive';
 
 @Component({
   selector: 'pr-birth-year-input',
   standalone: true,
   templateUrl: './birth-year-input.component.html',
   styleUrl: './birth-year-input.component.css',
+  imports: [FormControlValidationDirective],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
