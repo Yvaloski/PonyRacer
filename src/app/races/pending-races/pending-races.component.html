@@ -1,0 +1,6 @@
+@for (race of races; track race.id) {
+  <div>
+    <pr-race [raceModel]="race" />
+    <a [routerLink]="['/races', race.id]" class="btn btn-primary mb-2">Bet on {{ race.name }}</a>
+  </div>
+}

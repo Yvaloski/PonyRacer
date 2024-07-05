@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-07-04T14:04:06.862Z",
+    "end": "2024-07-04T14:04:10.399Z",
+    "duration": 3537,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "47a0fbb9-ce0f-4492-88d6-7fa9533a3c56",
+      "title": "",
+      "fullFile": "cypress/e2e/register.cy.ts",
+      "file": "cypress/e2e/register.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c82a897f-9bd1-40bc-b701-8974f462b62c",
+          "title": "Register",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should display a register page",
+              "fullTitle": "Register should display a register page",
+              "timedOut": null,
+              "duration": 3418,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/register');\nconst loginInput = () => cy.get('input').first();\nconst passwordInput = () => cy.get('input[type=password]').first();\nconst confirmInput = () => cy.get('input[type=password]').eq(1);\nconst birthYearInput = () => cy.get('input[type=number]');\ncy.get('button').should('be.visible').and('be.disabled');\nloginInput().type('c');\nloginInput().clear();\ncy.get('#login-required-error').should('be.visible').and('contain', 'Login is required');\nloginInput().type('ced');\ncy.get('#login-required-error').should('not.exist');\npasswordInput().type('p');\npasswordInput().clear();\ncy.get('#password-required-error').should('be.visible').and('contain', 'Password is required');\npasswordInput().type('pa');\ncy.get('#password-required-error').should('not.exist');\nconfirmInput().type('p');\nconfirmInput().clear();\ncy.get('#confirm-password-required-error').should('be.visible').and('contain', 'Password confirmation is required');\nconfirmInput().type('p');\ncy.get('#password-matching-error').should('be.visible').and('contain', 'Your password does not match');\nconfirmInput().type('a');\ncy.get('#password-matching-error').should('not.exist');\nbirthYearInput().type('1');\nbirthYearInput().clear();\ncy.get('#birth-year-required-error').should('be.visible').and('contain', 'Birth year is required');\nbirthYearInput().type(`${new Date().getFullYear() + 1}`);\ncy.get('#birth-year-invalid-error').should('be.visible').and('contain', 'This is not a valid year');\nbirthYearInput().clear();\nbirthYearInput().type('86');\ncy.get('#birth-year-invalid-error').should('not.exist');\ncy.get('.formatted-year').should('contain', '1986');\ncy.get('form > button').click();\ncy.wait('@registerUser');\ncy.location('pathname').should('eq', '/');",
+              "err": {},
+              "uuid": "73061a8e-4fc8-482e-8970-8c265dd9716f",
+              "parentUUID": "c82a897f-9bd1-40bc-b701-8974f462b62c",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "73061a8e-4fc8-482e-8970-8c265dd9716f"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3418,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "results/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

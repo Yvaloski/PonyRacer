@@ -1,0 +1,12 @@
+<div class="text-center" style="margin-top: 100px">
+  <h1>Ponyracer <small>Always a pleasure to bet on ponies</small></h1>
+</div>
+<div class="container text-center">
+  <h1>Welcome to PonyRacer!</h1>
+  <p>
+    <a *ngIf="!user()" class="btn btn-primary m-2" routerLink="/users/register">Register</a>
+    <a *ngIf="!user()" class="btn btn-primary m-2" routerLink="/users/login">Login</a>
+    <a *ngIf="user()" class="btn btn-primary m-2" routerLink="/races">Races</a>
+  </p>
+</div>
+<div class="container" [ngStyle]="{ background: 'url(./images/ponies.jpg)', height: 100 }"></div>

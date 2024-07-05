@@ -1,0 +1,9 @@
+<div>
+  <h2>{{ raceModel.name }}</h2>
+  <p>{{ raceModel.startInstant | fromNow }}</p>
+  <ul>
+    @for (pony of raceModel.ponies; track pony.id) {
+      <pr-pony [ponyModel]="pony"></pr-pony>
+    }
+  </ul>
+</div>
